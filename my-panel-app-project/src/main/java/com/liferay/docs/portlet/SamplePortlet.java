@@ -1,6 +1,7 @@
 package com.liferay.docs.portlet;
 
 import com.liferay.docs.constants.SamplePortletKeys;
+import com.liferay.docs.portlet.service.TemplateService;
 import com.liferay.dynamic.data.mapping.kernel.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalServiceUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -40,9 +41,12 @@ import org.osgi.service.component.annotations.Component;
 )
 public class SamplePortlet extends MVCPortlet {
 	
-	
-	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {        
 
+	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {        
+		 
+		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> listadoTemplates = TemplateService.getTemplates();
+		
+		renderRequest.setAttribute("listadoTemplates", listadoTemplates);
 		
         super.render(renderRequest, renderResponse);
 
