@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TemplateService {
 	
-	public List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getTemplates() {
+	public static List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getTemplates() {
 		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> lista = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE); 
 		return lista;
 	}
