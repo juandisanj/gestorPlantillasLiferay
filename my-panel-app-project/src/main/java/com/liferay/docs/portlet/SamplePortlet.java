@@ -2,15 +2,17 @@ package com.liferay.docs.portlet;
 
 import com.liferay.docs.constants.SamplePortletKeys;
 import com.liferay.docs.portlet.service.TemplateService;
-import com.liferay.dynamic.data.mapping.kernel.DDMTemplate;
-import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.ProcessAction;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -51,4 +53,19 @@ public class SamplePortlet extends MVCPortlet {
         super.render(renderRequest, renderResponse);
 
     }
+	
+	@ProcessAction(name="downloadTemplates")
+	public void downloadTemplates (ActionRequest request, ActionResponse response) throws NumberFormatException, PortalException {
+		String[] templateIds = request.getParameterValues("idTemplate");
+		
+		for (String templateId: templateIds) {			
+			
+			com.liferay.dynamic.data.mapping.model.DDMTemplate template = TemplateService.getTemplate(Long.parseLong(templateId));
+			String script = template.getScript();
+
+		    System.out.println(script);
+
+		}
+	}
+	
 }
