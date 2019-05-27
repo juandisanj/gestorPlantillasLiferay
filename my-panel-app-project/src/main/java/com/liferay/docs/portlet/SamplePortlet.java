@@ -1,10 +1,17 @@
 package com.liferay.docs.portlet;
 
 import com.liferay.docs.constants.SamplePortletKeys;
-
+import com.liferay.dynamic.data.mapping.kernel.DDMTemplate;
+import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalServiceUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -32,4 +39,12 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class SamplePortlet extends MVCPortlet {
+	
+	
+	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {        
+
+		
+        super.render(renderRequest, renderResponse);
+
+    }
 }
