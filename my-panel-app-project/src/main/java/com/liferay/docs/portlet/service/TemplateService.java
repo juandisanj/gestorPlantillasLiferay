@@ -12,7 +12,7 @@ public class TemplateService {
 		return lista;
 	}
 	
-	public com.liferay.dynamic.data.mapping.model.DDMTemplate getTemplate(long templateId) throws PortalException {
+	public static com.liferay.dynamic.data.mapping.model.DDMTemplate getTemplate(long templateId) throws PortalException {
 		com.liferay.dynamic.data.mapping.model.DDMTemplate template = DDMTemplateLocalServiceUtil.getTemplate(templateId);
 		return template;
 	}
