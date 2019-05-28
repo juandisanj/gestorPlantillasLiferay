@@ -1,7 +1,8 @@
 package com.liferay.docs.portlet;
 
 import com.liferay.docs.constants.SamplePortletKeys;
-import com.liferay.docs.portlet.service.TemplateService;
+import com.liferay.docs.model.ResumenDatos;
+import com.liferay.docs.portlet.service.ResumenDatosService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
@@ -37,18 +38,20 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.name=" + SamplePortletKeys.Sample,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
-		"javax.portlet.supports.mime-type=text/html"
+		"javax.portlet.supports.mime-type=text/html",
+		"language.id=es_ES"
 	},
 	service = Portlet.class
 )
 public class SamplePortlet extends MVCPortlet {
 	
+	ResumenDatosService resumenDatosService = new ResumenDatosService();
 
 	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {        
 		 
-		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> listadoTemplates = TemplateService.getTemplates();
+		List<ResumenDatos> resumenDatos = resumenDatosService.getAll();
 		
-		renderRequest.setAttribute("listadoTemplates", listadoTemplates);
+		renderRequest.setAttribute("listadoTemplates", resumenDatos);
 		
         super.render(renderRequest, renderResponse);
 
@@ -56,14 +59,11 @@ public class SamplePortlet extends MVCPortlet {
 	
 	@ProcessAction(name="downloadTemplates")
 	public void downloadTemplates (ActionRequest request, ActionResponse response) throws NumberFormatException, PortalException {
-		String[] templateIds = request.getParameterValues("idTemplate");
+		String[] templateIds = request.getParameterValues("idDato");
 		
 		for (String templateId: templateIds) {			
-			
-			com.liferay.dynamic.data.mapping.model.DDMTemplate template = TemplateService.getTemplate(Long.parseLong(templateId));
-			String script = template.getScript();
 
-		    System.out.println(script);
+		    System.out.println(templateId);
 
 		}
 	}

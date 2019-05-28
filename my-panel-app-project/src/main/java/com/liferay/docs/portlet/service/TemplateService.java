@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TemplateService {
 	
+	
 	public static List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getTemplates() {
 		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> lista = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE); 
 		return lista;
@@ -31,6 +32,16 @@ public class TemplateService {
 	public String getTemplateScript(com.liferay.dynamic.data.mapping.model.DDMTemplate template) throws PortalException {
 		String templateScript = template.getScript();
 		return templateScript;
+	}
+	
+	public boolean getByClassName(com.liferay.dynamic.data.mapping.model.DDMTemplate template, String className){
+		String clase = template.getClassName();
+		if (clase == className) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 }
