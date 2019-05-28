@@ -39,7 +39,7 @@ public class DownloadTemplateAction implements MVCActionCommand {
 		_log.info("Method DownloadTemplateAction.processAction: Descarga de ficheros seleccionados");
 		
 		// Sustituir la lista completa por el listado recibido de sde el formulario
-		// actionRequest.getAttribute("listTemplate")
+		actionRequest.getAttribute("listTemplate");
 		List<DDMTemplate> listTemplate = tempService.getTemplates();
 		
 		File folder = null;
