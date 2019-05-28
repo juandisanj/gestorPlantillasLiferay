@@ -15,12 +15,19 @@ import java.util.zip.ZipOutputStream;
 
 public class DownloadFilesZipUtil {
 	
-	public static File createFolder() {
+	public static File createFolder(String type) {
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy_HHmmss");
 		Date date = new Date();
 		String dateString = sdf.format(date);
 		
-		File dir = new File("/C:/Users/juand/Documents/Temp_ftl_" + dateString);
+		File dir = null;
+		if("ftl".equals(type)) {
+			dir = new File("/C:/Users/juand/Documents/Temp_ftl_" + dateString);
+		}else if("adt".equals(type)) {
+			dir = new File("/C:/Users/juand/Documents/Temp_adt_" + dateString);
+		}else if("str".equals(type)) {
+			dir = new File("/C:/Users/juand/Documents/Temp_str_" + dateString);
+		}
 		dir.mkdir();
 		
 		return dir;

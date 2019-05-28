@@ -1,6 +1,8 @@
 package com.liferay.docs.portlet.service;
 
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil;
+import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.List;
@@ -17,9 +19,9 @@ public class StructureService {
 		return structure;
 	}
 	
-	public Long getStructureId(com.liferay.dynamic.data.mapping.model.DDMStructure structure) throws PortalException {
-		Long structureId = structure.getStructureId();
-		return structureId;
+	public DDMStructure getStructure(long structureId) throws PortalException {
+		com.liferay.dynamic.data.mapping.model.DDMStructure structure = DDMStructureLocalServiceUtil.getStructure(structureId);
+		return structure;
 	}
 	
 	public String getStructureName(com.liferay.dynamic.data.mapping.model.DDMStructure structure) throws PortalException {
@@ -40,6 +42,12 @@ public class StructureService {
 			return false;
 		}
 		
+	}
+	
+	public DDMStructure getStructureById(long structureId) throws PortalException {
+		DDMStructure structure = DDMStructureLocalServiceUtil.getDDMStructure(structureId);
+		
+		return structure;
 	}
 
 }

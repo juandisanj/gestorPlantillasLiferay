@@ -23,7 +23,11 @@ public class ResumenDatosService {
 			dato.setNombreDato(template.getName("Es_es"));
 			dato.setScriptDatos(template.getScript());
 			dato.setClaseDato(template.getClassName());
-			
+			if("".equals(template.getDescription())) {
+				dato.setTipo("ftl");
+			}else {
+				dato.setTipo("adt");
+			}
 			resumenDatos.add(dato);
 		}
 		
@@ -33,6 +37,7 @@ public class ResumenDatosService {
 			dato.setNombreDato(structure.getName("Es_es"));
 			dato.setScriptDatos(structure.getDefinition());
 			dato.setClaseDato(structure.getClassName());
+			dato.setTipo("structure");
 			
 			resumenDatos.add(dato);
 		}
@@ -73,5 +78,17 @@ public class ResumenDatosService {
 		return resumenDatos;
 		
 	}
+	
+	public ResumenDatos getDatoById(long idDato) {
+		ResumenDatos dato = new ResumenDatos();
+		
+		for(ResumenDatos rd : getAll()) {
+			if(rd.getIdDato() == idDato) {
+				dato = rd;
+			}
+		}
+		return dato;
+	}
+	
 
 }
