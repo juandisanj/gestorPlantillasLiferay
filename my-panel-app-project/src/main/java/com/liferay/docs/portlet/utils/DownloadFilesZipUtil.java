@@ -20,13 +20,15 @@ public class DownloadFilesZipUtil {
 		Date date = new Date();
 		String dateString = sdf.format(date);
 		
+		String username = System.getProperty("user.name");
+		
 		File dir = null;
 		if("ftl".equals(type)) {
-			dir = new File("/C:/Users/juand/Documents/Temp_ftl_" + dateString);
+			dir = new File("/C:/Users/" + username + "/Documents/Temp_ftl_" + dateString);
 		}else if("adt".equals(type)) {
-			dir = new File("/C:/Users/juand/Documents/Temp_adt_" + dateString);
+			dir = new File("/C:/Users/" + username + "/Documents/Temp_adt_" + dateString);
 		}else if("str".equals(type)) {
-			dir = new File("/C:/Users/juand/Documents/Temp_str_" + dateString);
+			dir = new File("/C:/Users/" + username + "/Documents/Temp_str_" + dateString);
 		}
 		dir.mkdir();
 		
