@@ -8,10 +8,10 @@
 		<aui:form action="${downloadTemplatesUrl}">
 			<div class="d-flex flex-column">
 				<c:forEach var="tema" items="${listadoTemplates}">
-					<aui:input name="idDato" type="checkbox" value="${tema.idDato}" label="${tema.nombreDato}"/>
+					<aui:input class="form-control" name="idDato" type="checkbox" value="${tema.idDato}" label="${tema.nombreDato}"/>
 				</c:forEach>				
 			</div>
-			<aui:button name="downloadTemplatesButton" type="submit" value="Descargar temas"/>
+			<aui:button class="btn btn-primary" name="downloadTemplatesButton" type="submit" value="Descargar temas"/>
 		</aui:form>
 	</div>
 </div>
