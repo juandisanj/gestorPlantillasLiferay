@@ -93,15 +93,28 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
 
+			List<String> listNames = new ArrayList<>();
 			for (DDMTemplate template : listTemplates) {
 				String ddmt = template.getScript();
-				try {
-					DownloadFilesZipUtil.createFile(folder, template.getTemplateKey(), ddmt);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				listNames.add(template.getTemplateKey());
+				
+				int count = checkDuplicates(listNames, template.getTemplateKey());
+				if(count == 1) {
+					try {
+						DownloadFilesZipUtil.createFile(folder, template.getTemplateKey(), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					try {
+						DownloadFilesZipUtil.createFile(folder, template.getTemplateKey() + "_" + String.valueOf(count), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-
+				
 			}
 			DownloadFilesZipUtil.exportFolderToZip(folder);
 		}
@@ -114,15 +127,29 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
 
+			List<String> listNames = new ArrayList<>();
 			for (DDMTemplate template : listAdts) {
 				String ddmt = template.getScript();
-				try {
-					DownloadFilesZipUtil.createFile(folder, template.getTemplateKey(), ddmt);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				listNames.add(template.getTemplateKey());
+				
+				int count = checkDuplicates(listNames, template.getTemplateKey());
+				
+				if(count == 1) {
+					try {
+						DownloadFilesZipUtil.createFile(folder, template.getTemplateKey(), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					try {
+						DownloadFilesZipUtil.createFile(folder, template.getTemplateKey() + "_" + String.valueOf(count), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-
+				
 			}
 			DownloadFilesZipUtil.exportFolderToZip(folder);
 		}
@@ -135,14 +162,32 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
 
-			for (DDMStructure template : listStructures) {
-				String ddmt = template.getDefinition();
-				try {
-					DownloadFilesZipUtil.createFile(folder, template.getStructureKey(), ddmt);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			List<String> listNames = new ArrayList<>();
+			
+			for (DDMStructure structure : listStructures) {
+				String ddmt = structure.getDefinition();
+				
+				listNames.add(structure.getStructureKey());
+				
+				int count = checkDuplicates(listNames, structure.getStructureKey());
+				
+				if(count == 1) {
+					try {
+						DownloadFilesZipUtil.createFile(folder, structure.getStructureKey(), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					try {
+						DownloadFilesZipUtil.createFile(folder, structure.getStructureKey() + "_" + String.valueOf(count), ddmt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
 				}
+				
 			}
 			DownloadFilesZipUtil.exportFolderToZip(folder);
 		}
@@ -150,6 +195,16 @@ public class DownloadTemplateAction implements MVCActionCommand {
 		actionResponse.setRenderParameter("mvcRenderCommandName", "/");
 
 		return true;
+	}
+	
+	private int checkDuplicates(List<String> listNames, String name) {
+		int count = 0;
+		for(String s : listNames) {
+			if(s.equals(name)) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 }
