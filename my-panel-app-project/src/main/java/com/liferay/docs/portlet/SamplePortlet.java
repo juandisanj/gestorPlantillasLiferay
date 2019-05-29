@@ -3,17 +3,14 @@ package com.liferay.docs.portlet;
 import com.liferay.docs.constants.SamplePortletKeys;
 import com.liferay.docs.model.ResumenDatos;
 import com.liferay.docs.portlet.service.ResumenDatosService;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
-import javax.portlet.ProcessAction;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -47,33 +44,15 @@ public class SamplePortlet extends MVCPortlet {
 	
 	ResumenDatosService resumenDatosService = new ResumenDatosService();
 
-	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {        
-		 
-		List<ResumenDatos> resumenDatos = resumenDatosService.getAll();
-		
-		renderRequest.setAttribute("listadoTemplates", resumenDatos);
-		
+	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {               
+        
+		List<ResumenDatos> resumenDatosStru = resumenDatosService.getStructures();
+		List<ResumenDatos> resumenDatosTempl = resumenDatosService.getTemplates();
+		List<ResumenDatos> resumenDatosAdts = resumenDatosService.getAdts();
+		renderRequest.setAttribute("listadoStru", resumenDatosStru);
+		renderRequest.setAttribute("listadoTemplates", resumenDatosTempl);
+		renderRequest.setAttribute("listadoAdts", resumenDatosAdts);        
+        
         super.render(renderRequest, renderResponse);
-        
-        
-        
-        
-        
-//        String[] tiposDeclarados = {"todos", "adt", "ftl", "structure"};
-//        String tipoRecogido;        
-//        if (tipoRecogido == null || tipoRecogido == "todos") {
-//            List<ResumenDatos> resumenDatos = resumenDatosService.getAll();
-//            renderRequest.setAttribute("listadoTemplates", resumenDatos);
-//        } else {
-//            List<ResumenDatos> resumenDatos = resumenDatosService.getByType(tipoRecogido);
-//            renderRequest.setAttribute("listadoTemplates", resumenDatos);
-//        }
-//        
-//        renderRequest.setAttribute("listatipos", tiposDeclarados);
-//        
-//        
-//        super.render(renderRequest, renderResponse);
-
-    }
-	
+	}
 }

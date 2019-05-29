@@ -117,9 +117,9 @@ public class ResumenDatosService {
 	public List<ResumenDatos> getStructures(){
 		List<ResumenDatos> listStructures = new ArrayList<>();
 		
-		for(ResumenDatos adts : getAll()) {
-			if("str".equals(adts.getTipo())){
-				listStructures.add(adts);
+		for(ResumenDatos strs : getAll()) {
+			if("structure".equals(strs.getTipo())){
+				listStructures.add(strs);
 			}
 		}
 		
