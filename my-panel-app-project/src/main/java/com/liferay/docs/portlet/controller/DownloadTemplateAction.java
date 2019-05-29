@@ -71,19 +71,6 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			}
 		}
 
-		// Averiguar como se distinguen
-		// Recorrer la lista comprobando esa diferencia
-		// Crear una lista para cada tipo de archivo
-
-		// Tranformar los modelos recibidos en el objeto original, llamando a los
-		// servicios
-
-		// Una vez creadas las listas de elementos definitivos, llamar al servicio de
-		// utilidades
-		// para comprimir y generar los archivos
-
-		
-
 		if (listTemplates.size() != 0) {
 			// Crear una carpeta que contenga las plantillas
 			// nombre de la carpeta es la fecha actual
