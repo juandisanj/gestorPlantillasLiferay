@@ -90,5 +90,41 @@ public class ResumenDatosService {
 		return dato;
 	}
 	
+	public List<ResumenDatos> getTemplates() {
+		List<ResumenDatos> listTemplates = new ArrayList<>();
+		
+		for(ResumenDatos template : getAll()) {
+			if("ftl".equals(template.getTipo())){
+				listTemplates.add(template);
+			}
+		}
+		
+		return listTemplates;
+	}
+	
+	public List<ResumenDatos> getAdts(){
+		List<ResumenDatos> listAdts = new ArrayList<>();
+		
+		for(ResumenDatos adts : getAll()) {
+			if("adt".equals(adts.getTipo())){
+				listAdts.add(adts);
+			}
+		}
+		
+		return listAdts;
+	}
+	
+	public List<ResumenDatos> getStructures(){
+		List<ResumenDatos> listStructures = new ArrayList<>();
+		
+		for(ResumenDatos adts : getAll()) {
+			if("str".equals(adts.getTipo())){
+				listStructures.add(adts);
+			}
+		}
+		
+		return listStructures;
+	}
+	
 
 }

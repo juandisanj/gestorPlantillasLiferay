@@ -54,18 +54,26 @@ public class SamplePortlet extends MVCPortlet {
 		renderRequest.setAttribute("listadoTemplates", resumenDatos);
 		
         super.render(renderRequest, renderResponse);
+        
+        
+        
+        
+        
+//        String[] tiposDeclarados = {"todos", "adt", "ftl", "structure"};
+//        String tipoRecogido;        
+//        if (tipoRecogido == null || tipoRecogido == "todos") {
+//            List<ResumenDatos> resumenDatos = resumenDatosService.getAll();
+//            renderRequest.setAttribute("listadoTemplates", resumenDatos);
+//        } else {
+//            List<ResumenDatos> resumenDatos = resumenDatosService.getByType(tipoRecogido);
+//            renderRequest.setAttribute("listadoTemplates", resumenDatos);
+//        }
+//        
+//        renderRequest.setAttribute("listatipos", tiposDeclarados);
+//        
+//        
+//        super.render(renderRequest, renderResponse);
 
     }
-	
-	@ProcessAction(name="downloadTemplates")
-	public void downloadTemplates (ActionRequest request, ActionResponse response) throws NumberFormatException, PortalException {
-		String[] templateIds = request.getParameterValues("idDato");
-		
-		for (String templateId: templateIds) {			
-
-		    System.out.println(templateId);
-
-		}
-	}
 	
 }
