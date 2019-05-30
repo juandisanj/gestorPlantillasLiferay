@@ -1,75 +1,94 @@
 <%@ include file="/init.jsp"%>
 <div class="row" style="margin: 0.2em;">
-	<div class="col-md-4" style="margin: 0.2em;">
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<table
+				class="show-quick-actions-on-hover table table-autofit table-hover table-list table-nowrap">
+				<thead>
+					<tr class="text-center">
+						<th id="check" scope="col"><input name="check"
+							type="checkbox" id="checkAll" /> Todos</th>
+						<th id="check" scope="col"><input name="check"
+							type="checkbox" id="checkStrus" /> Estructuras</th>
+						<th id="check" scope="col"><input name="check"
+							type="checkbox" id="checkTemplates" /> Plantillas</th>
+						<th id="check" scope="col"><input name="check"
+							type="checkbox" id="checkAdts" /> ADTs</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="row" style="margin: 0.2em;">
+	<div class="col-md-3">
 		<portlet:actionURL name="downloadTemplates" var="downloadTemplatesUrl" />
 		<aui:form action="${downloadTemplatesUrl}">
-			<table class="table-responsive-md ">
-				<table class="table table-striped">
+			<div class="table-responsive">
+				<table
+					class="show-quick-actions-on-hover table table-autofit table-hover table-list table-nowrap">
 					<thead>
-						<tr>
-							<th id="check" scope="col"><input name="check"
-								type="checkbox" id="checkAll" /></th>
-								<th scope="col">Todos</th>
-						</tr>
-					</thead>
-				</table>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th id="check" scope="col"><input name="check"
-								type="checkbox" id="checkStrus" /></th>
-								<th scope="col">Estructuras</th>
+						<tr class="text-center">
+							<th colspan="2">Estructuras</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="tema" items="${listadoStru}">
 							<tr>
-								<td style="width: 0.2em;"><aui:input id="checkStru" name="idDato" type="checkbox"
-										value="${tema.idDato}" label=" " /></td>
-								<td>${tema.nombreDato}</td>
+								<td><input id="checkStru" name="idDato" type="checkbox"
+									value="${tema.idDato}" label=" " /></td>
+								<td class="text-left">${tema.nombreDato}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<table class="table table-striped">
-					<thead>
+			</div>
+	</div>
+	<div class="col-md-3">
+		<div class="table-responsive">
+			<table
+				class="show-quick-actions-on-hover table table-autofit table-hover table-list table-nowrap">
+				<thead>
+					<tr class="text-center">
+						<th colspan="2">Plantillas</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="tema" items="${listadoTemplates}">
 						<tr>
-							<th id="check" scope="col"><input name="check"
-								type="checkbox" id="checkTemplates" /></th>
-								<th scope="col">Plantillas</th>
+							<td><input id="checkTemp" name="idDato"
+								type="checkbox" value="${tema.idDato}" label=" " /></td>
+							<td class="text-left">${tema.nombreDato}</td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="tema" items="${listadoTemplates}">
-							<tr>
-								<td style="width: 0.2em;"><aui:input id="checkTemp" name="idDato" type="checkbox"
-										value="${tema.idDato}" label=" " /></td>
-								<td>${tema.nombreDato}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th id="check" scope="col"><input name="check"
-								type="checkbox" id="checkAdts" /></th>
-								<th scope="col">ADTs</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="tema" items="${listadoAdts}">
-							<tr>
-								<td style="width: 0.2em;"><aui:input id="checkAdt" name="idDato" type="checkbox"
-										value="${tema.idDato}" label=" " /></td>
-								<td>${tema.nombreDato}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+					</c:forEach>
+				</tbody>
 			</table>
-			<aui:button id="btncheck" name="downloadTemplatesButton"
-				type="submit" value="Descargar archivo(s)" />
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="table-responsive">
+			<table
+				class="show-quick-actions-on-hover table table-autofit table-hover table-list table-nowrap">
+				<thead>
+					<tr class="text-center">
+						<th colspan="2">ADTs</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="tema" items="${listadoAdts}">
+						<tr>
+							<td><input id="checkAdt" name="idDato" type="checkbox"
+								value="${tema.idDato}" label=" " /></td>
+							<td class="text-left">${tema.nombreDato}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<aui:button id="btncheck" name="downloadTemplatesButton" type="submit"
+			value="Descargar archivo(s)" />
 		</aui:form>
 	</div>
 </div>
@@ -79,15 +98,15 @@
 	});
 
 	$("#checkTemplates").click(function() {
-		$("input#_sample_checkTemp").not(this).prop('checked', this.checked);
+		$("input#checkTemp").not(this).prop('checked', this.checked);
 	});
 
 	$("#checkAdts").click(function() {
-		$("input#_sample_checkAdt").not(this).prop('checked', this.checked);
+		$("input#checkAdt").not(this).prop('checked', this.checked);
 	});
 
 	$("#checkStrus").click(function() {
-		$("input#_sample_checkStru").not(this).prop('checked', this.checked);
+		$("input#checkStru").not(this).prop('checked', this.checked);
 	});
 
 	$('input:checkbox').change(function() {
