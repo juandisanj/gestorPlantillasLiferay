@@ -48,7 +48,7 @@ public class ResumenDatosService {
 	
 	public List<ResumenDatos> getByClassName(String className){
 		
-		List<DDMTemplate> listaTemplates = TemplateService.getTemplates();
+		List<DDMTemplate> listaTemplates = templateService.getTemplates();
 		List<ResumenDatos> resumenDatos = new ArrayList<>();
 		List<DDMStructure> listaStructures = StructureService.getStructures();
 		
@@ -80,10 +80,10 @@ public class ResumenDatosService {
 		
 	}
 	
-	public List<ResumenDatos> getAllByGroupId(long groupId) {
+	public List<ResumenDatos> getAllByGroupId(long groupId, long userId) {
 		
 		List<ResumenDatos> resumenDatos = new ArrayList<>();
-		List<DDMTemplate> listaTemplates = templateService.getTemplatesByGroupId(groupId);
+		List<DDMTemplate> listaTemplates = templateService.getTemplatesByGroupId(groupId, userId);
 		List<DDMStructure> listaStructures = structureService.getStructuresByGroupId(groupId);
 		
 		for (DDMTemplate template: listaTemplates) {
@@ -125,10 +125,10 @@ public class ResumenDatosService {
 		return dato;
 	}
 	
-	public List<ResumenDatos> getTemplates(long groupId) {
+	public List<ResumenDatos> getTemplates(long groupId, long userId) {
 		List<ResumenDatos> listTemplates = new ArrayList<>();
 		
-		for(ResumenDatos template : getAllByGroupId(groupId)) {
+		for(ResumenDatos template : getAllByGroupId(groupId, userId)) {
 			if("ftl".equals(template.getTipo())){
 				listTemplates.add(template);
 			}
@@ -137,10 +137,10 @@ public class ResumenDatosService {
 		return listTemplates;
 	}
 	
-	public List<ResumenDatos> getAdts(long groupId){
+	public List<ResumenDatos> getAdts(long groupId, long userId){
 		List<ResumenDatos> listAdts = new ArrayList<>();
 		
-		for(ResumenDatos adts : getAllByGroupId(groupId)) {
+		for(ResumenDatos adts : getAllByGroupId(groupId, userId)) {
 			if("adt".equals(adts.getTipo())){
 				listAdts.add(adts);
 			}
@@ -149,10 +149,10 @@ public class ResumenDatosService {
 		return listAdts;
 	}
 	
-	public List<ResumenDatos> getStructures(long groupId){
+	public List<ResumenDatos> getStructures(long groupId, long userId){
 		List<ResumenDatos> listStructures = new ArrayList<>();
 		
-		for(ResumenDatos strs : getAllByGroupId(groupId)) {
+		for(ResumenDatos strs : getAllByGroupId(groupId, userId)) {
 			if("structure".equals(strs.getTipo())){
 				listStructures.add(strs);
 			}

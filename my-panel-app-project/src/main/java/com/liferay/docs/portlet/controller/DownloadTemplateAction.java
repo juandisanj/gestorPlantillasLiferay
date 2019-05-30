@@ -187,13 +187,13 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
 
-//		actionResponse.setRenderParameter("mvcRenderCommandName", "/");
-		try {
-			actionResponse.sendRedirect("/");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		actionResponse.setRenderParameter("mvcRenderCommandName", "/");
+//		try {
+//			actionResponse.sendRedirect("/");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		return true;
 	}

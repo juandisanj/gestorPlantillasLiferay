@@ -4,19 +4,32 @@ import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateService {
 	
+	private DDMTemplateLocalServiceUtil templateService = new DDMTemplateLocalServiceUtil();
 	
-	public static List<DDMTemplate> getTemplates() {
-		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> lista = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE); 
+	
+	public List<DDMTemplate> getTemplates() {
+		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> lista = templateService.getDDMTemplates(0, Integer.MAX_VALUE); 
 		return lista;
 	}
 	
-	public List<DDMTemplate> getTemplatesByGroupId(long groupId){
-		List<DDMTemplate> listDDMTemplate = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE);
-		return listDDMTemplate;
+	public List<DDMTemplate> getTemplatesByGroupId(long groupId, long userId){
+		List<DDMTemplate> listTemplateGroup = new ArrayList<>();
+		
+		List<DDMTemplate> listDDMTemplate = getTemplates();
+		
+		for(DDMTemplate template : listDDMTemplate) {
+			
+			if (template.getUserId() == userId) {
+				listTemplateGroup.add(template);
+			}
+		}
+		
+		return listTemplateGroup;
 	}
 	
 	public static DDMTemplate getTemplate(long templateId) throws PortalException {
