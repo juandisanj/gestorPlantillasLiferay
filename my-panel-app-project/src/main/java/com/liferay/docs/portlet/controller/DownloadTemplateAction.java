@@ -8,10 +8,16 @@ import com.liferay.docs.portlet.service.TemplateService;
 import com.liferay.docs.portlet.utils.DownloadFilesZipUtil;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
+import com.liferay.expando.kernel.model.ExpandoValue;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,8 +30,11 @@ import javax.portlet.PortletException;
 
 import org.osgi.service.component.annotations.Component;
 
-@Component(immediate = true, property = { "javax.portlet.name=" + SamplePortletKeys.Sample,
-		"mvc.command.name=downloadTemplates" }, service = MVCActionCommand.class)
+@Component(immediate = true,
+			property = { 
+					"javax.portlet.name=" + SamplePortletKeys.Sample,
+					"mvc.command.name=downloadTemplates" }, 
+			service = MVCActionCommand.class)
 
 public class DownloadTemplateAction implements MVCActionCommand {
 
@@ -75,7 +84,7 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			// Crear una carpeta que contenga las plantillas
 			// nombre de la carpeta es la fecha actual
 			File folder = null;
-			folder = DownloadFilesZipUtil.createFolder("ftl");
+			folder = DownloadFilesZipUtil.createFolder("ftl", getPathPortal(actionRequest));
 
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
@@ -103,13 +112,13 @@ public class DownloadTemplateAction implements MVCActionCommand {
 				}
 				
 			}
-			DownloadFilesZipUtil.exportFolderToZip(folder);
+			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
 		if (listAdts.size() != 0) {
 			// Crear una carpeta que contenga las plantillas
 			// nombre de la carpeta es la fecha actual
 			File folder = null;
-			folder = DownloadFilesZipUtil.createFolder("adt");
+			folder = DownloadFilesZipUtil.createFolder("adt", getPathPortal(actionRequest));
 
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
@@ -138,13 +147,13 @@ public class DownloadTemplateAction implements MVCActionCommand {
 				}
 				
 			}
-			DownloadFilesZipUtil.exportFolderToZip(folder);
+			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
 		if (listStructures.size() != 0) {
 			// Crear una carpeta que contenga las plantillas
 			// nombre de la carpeta es la fecha actual
 			File folder = null;
-			folder = DownloadFilesZipUtil.createFolder("str");
+			folder = DownloadFilesZipUtil.createFolder("str", getPathPortal(actionRequest));
 
 			// Recorrer la lista de plantillas, añadiendo cada plantilla a la carpeta recién
 			// creada
@@ -176,7 +185,7 @@ public class DownloadTemplateAction implements MVCActionCommand {
 				}
 				
 			}
-			DownloadFilesZipUtil.exportFolderToZip(folder);
+			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
 
 		actionResponse.setRenderParameter("mvcRenderCommandName", "/");
@@ -192,6 +201,17 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			}
 		}
 		return count;
+	}
+	
+	private String getPathPortal(ActionRequest actionRequest) {
+		ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long classNameId = ClassNameLocalServiceUtil.getClassNameId(User.class.getName());
+		long userId = td.getUserId();
+		ExpandoValue ev = ExpandoValueLocalServiceUtil.getValue(td.getCompanyId(), classNameId, "CUSTOM_FIELDS", "Pathtemplates", userId);
+		String value=ev.getData();
+		System.out.println("Field value==>"+value);
+		
+		return value;
 	}
 
 }
