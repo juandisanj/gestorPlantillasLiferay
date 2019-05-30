@@ -3,10 +3,15 @@ package com.liferay.docs.portlet;
 import com.liferay.docs.constants.SamplePortletKeys;
 import com.liferay.docs.model.ResumenDatos;
 import com.liferay.docs.portlet.service.ResumenDatosService;
+import com.liferay.expando.kernel.model.ExpandoValue;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.Portlet;
@@ -46,6 +51,7 @@ public class SamplePortlet extends MVCPortlet {
 
 	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {               
         
+		
 		List<ResumenDatos> resumenDatosStru = resumenDatosService.getStructures();
 		List<ResumenDatos> resumenDatosTempl = resumenDatosService.getTemplates();
 		List<ResumenDatos> resumenDatosAdts = resumenDatosService.getAdts();
