@@ -7,14 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 
 public class DownloadFilesZipUtil {
 	
@@ -27,11 +23,11 @@ public class DownloadFilesZipUtil {
 		
 		File dir = null;
 		if("ftl".equals(type)) {
-			dir = new File("/" + path + "/Temp_ftl_" + dateString);
+			dir = new File("/Temp_ftl_" + dateString);
 		}else if("adt".equals(type)) {
-			dir = new File("/" + path + "/Temp_adt_" + dateString);
+			dir = new File("/Temp_adt_" + dateString);
 		}else if("str".equals(type)) {
-			dir = new File("/" + path + "/Temp_str_" + dateString);
+			dir = new File("/Temp_str_" + dateString);
 		}
 		dir.mkdir();
 		
