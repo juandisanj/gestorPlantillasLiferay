@@ -87,17 +87,7 @@
 		</div>
 	</div>
 	<div class="col-md-3">
-		<aui:button id="btncheck" name="downloadTemplatesButton" type="submit"
-			value="Descargar archivo(s)" />
-		</aui:form>
-		<div style="margin-top:0.2em;"></div>
-		<portlet:actionURL name="setFolders" var="setFoldersUrl" />
-		<aui:form action="${setFoldersUrl}">
-		<aui:input id="pathStru" name="pathStru" type="text" label="Directorio para Estructuras" />
-		<aui:input id="pathTemp" name="pathTemp" type="text" label="Directorio para Plantillas" />
-		<aui:input id="pathAdt" name="pathAdt" type="text" label="Directorio para ADTs" />
-			<aui:button id="btncheck" name="setFoldersButton" type="submit"
-			value="Guardar" />
+		<aui:button id="btncheck" name="downloadTemplatesButton" type="submit" value="Descargar archivo(s)" />
 		</aui:form>
 	</div>
 </div>
@@ -118,7 +108,10 @@
 		$("input#_sample_checkStru").not(this).prop('checked', this.checked);
 	});
 
-	$('input:checkbox').change(function() {
-		$('#_sample_btncheck').prop("disabled", !this.checked);
+    $('input:checkbox').change(function() {
+
+		$('#_sample_btncheck').prop("disabled", $('input:checkbox:checked').length == 0);
+
 	}).change()
+	
 </script>
