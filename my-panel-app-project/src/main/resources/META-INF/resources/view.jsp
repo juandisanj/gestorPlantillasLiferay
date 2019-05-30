@@ -35,7 +35,7 @@
 					<tbody>
 						<c:forEach var="tema" items="${listadoStru}">
 							<tr>
-								<td><input id="checkStru" name="idDato" type="checkbox"
+								<td><aui:input id="checkStru" name="idDato" type="checkbox"
 									value="${tema.idDato}" label=" " /></td>
 								<td class="text-left">${tema.nombreDato}</td>
 							</tr>
@@ -56,7 +56,7 @@
 				<tbody>
 					<c:forEach var="tema" items="${listadoTemplates}">
 						<tr>
-							<td><input id="checkTemp" name="idDato"
+							<td><aui:input id="checkTemp" name="idDato"
 								type="checkbox" value="${tema.idDato}" label=" " /></td>
 							<td class="text-left">${tema.nombreDato}</td>
 						</tr>
@@ -77,7 +77,7 @@
 				<tbody>
 					<c:forEach var="tema" items="${listadoAdts}">
 						<tr>
-							<td><input id="checkAdt" name="idDato" type="checkbox"
+							<td><aui:input id="checkAdt" name="idDato" type="checkbox"
 								value="${tema.idDato}" label=" " /></td>
 							<td class="text-left">${tema.nombreDato}</td>
 						</tr>
@@ -90,6 +90,15 @@
 		<aui:button id="btncheck" name="downloadTemplatesButton" type="submit"
 			value="Descargar archivo(s)" />
 		</aui:form>
+		<div style="margin-top:0.2em;"></div>
+		<portlet:actionURL name="setFolders" var="setFoldersUrl" />
+		<aui:form action="${setFoldersUrl}">
+		<aui:input id="pathStru" name="pathStru" type="text" label="Directorio para Estructuras" />
+		<aui:input id="pathTemp" name="pathTemp" type="text" label="Directorio para Plantillas" />
+		<aui:input id="pathAdt" name="pathAdt" type="text" label="Directorio para ADTs" />
+			<aui:button id="btncheck" name="setFoldersButton" type="submit"
+			value="Guardar" />
+		</aui:form>
 	</div>
 </div>
 <script>
@@ -98,15 +107,15 @@
 	});
 
 	$("#checkTemplates").click(function() {
-		$("input#checkTemp").not(this).prop('checked', this.checked);
+		$("input#_sample_checkTemp").not(this).prop('checked', this.checked);
 	});
 
 	$("#checkAdts").click(function() {
-		$("input#checkAdt").not(this).prop('checked', this.checked);
+		$("input#_sample_checkAdt").not(this).prop('checked', this.checked);
 	});
 
 	$("#checkStrus").click(function() {
-		$("input#checkStru").not(this).prop('checked', this.checked);
+		$("input#_sample_checkStru").not(this).prop('checked', this.checked);
 	});
 
 	$('input:checkbox').change(function() {
