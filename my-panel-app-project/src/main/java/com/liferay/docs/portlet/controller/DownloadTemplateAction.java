@@ -145,7 +145,6 @@ public class DownloadTemplateAction implements MVCActionCommand {
 						e.printStackTrace();
 					}
 				}
-				
 			}
 			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
