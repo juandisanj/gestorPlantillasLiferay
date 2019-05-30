@@ -13,6 +13,11 @@ public class StructureService {
 		return lista;
 	}
 	
+	public List<DDMStructure> getStructuresByGroupId(long groupId){
+		List<DDMStructure> listStructures = DDMStructureLocalServiceUtil.getStructures(groupId);
+		return listStructures;
+	}
+	
 	public DDMStructure getTemplate(long structureId) throws PortalException {
 		DDMStructure structure = DDMStructureLocalServiceUtil.getDDMStructure(structureId);
 		return structure;

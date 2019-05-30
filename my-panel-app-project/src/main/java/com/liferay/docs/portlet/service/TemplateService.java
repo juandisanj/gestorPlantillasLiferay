@@ -14,6 +14,11 @@ public class TemplateService {
 		return lista;
 	}
 	
+	public List<DDMTemplate> getTemplatesByGroupId(long groupId){
+		List<DDMTemplate> listDDMTemplate = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE);
+		return listDDMTemplate;
+	}
+	
 	public static DDMTemplate getTemplate(long templateId) throws PortalException {
 		DDMTemplate template = DDMTemplateLocalServiceUtil.getTemplate(templateId);
 		return template;

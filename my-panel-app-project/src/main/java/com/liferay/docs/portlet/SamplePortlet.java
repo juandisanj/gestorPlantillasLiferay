@@ -4,6 +4,8 @@ import com.liferay.docs.constants.SamplePortletKeys;
 import com.liferay.docs.model.ResumenDatos;
 import com.liferay.docs.portlet.service.ResumenDatosService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,10 +47,13 @@ public class SamplePortlet extends MVCPortlet {
 
 	public void render (RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {               
         
+		ThemeDisplay td = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
-		List<ResumenDatos> resumenDatosStru = resumenDatosService.getStructures();
-		List<ResumenDatos> resumenDatosTempl = resumenDatosService.getTemplates();
-		List<ResumenDatos> resumenDatosAdts = resumenDatosService.getAdts();
+		long groupId = td.getCompanyGroupId();
+		
+		List<ResumenDatos> resumenDatosStru = resumenDatosService.getStructures(groupId);
+		List<ResumenDatos> resumenDatosTempl = resumenDatosService.getTemplates(groupId);
+		List<ResumenDatos> resumenDatosAdts = resumenDatosService.getAdts(groupId);
 		renderRequest.setAttribute("listadoStru", resumenDatosStru);
 		renderRequest.setAttribute("listadoTemplates", resumenDatosTempl);
 		renderRequest.setAttribute("listadoAdts", resumenDatosAdts);        
