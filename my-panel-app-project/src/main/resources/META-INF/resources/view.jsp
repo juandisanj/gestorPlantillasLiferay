@@ -90,7 +90,7 @@
 		<aui:button id="btncheck" name="downloadTemplatesButton" type="submit"
 			value="Descargar archivo(s)" />
 		</aui:form>
-		<br>
+		<div style="margin-top:0.2em;"></div>
 		<portlet:actionURL name="setFolders" var="setFoldersUrl" />
 		<aui:form action="${setFoldersUrl}">
 		<aui:input id="pathStru" name="pathStru" type="text" label="Directorio para Estructuras" />
