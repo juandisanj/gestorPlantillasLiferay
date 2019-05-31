@@ -17,10 +17,8 @@ public class TemplateService {
 	public List<DDMTemplate> getTemplatesByGroupId(long groupId, long userId){
 		List<DDMTemplate> listTemplateGroup = new ArrayList<>();
 		
-		List<DDMTemplate> listDDMTemplate = getTemplates();
-		
-		for(DDMTemplate template : listDDMTemplate) {
-			if (template.getUserId() == userId) {
+		for(DDMTemplate template : getTemplates()) {
+			if (template.getUserId() == userId && template.getGroupId() == groupId) {
 				listTemplateGroup.add(template);
 			}
 		}
