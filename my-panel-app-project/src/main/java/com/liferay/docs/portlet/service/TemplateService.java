@@ -67,7 +67,5 @@ public class TemplateService {
 		} else {
 			return false;
 		}
-		
 	}
-
 }
