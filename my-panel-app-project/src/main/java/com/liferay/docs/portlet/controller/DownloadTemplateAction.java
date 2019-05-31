@@ -54,19 +54,18 @@ public class DownloadTemplateAction implements MVCActionCommand {
 		long userId = td.getUserId();
 		long groupId = td.getSiteGroupId();
 		
+		// Recuperar las plantillas seleccionadas y convertirlas en objetos ResumenDatos
 		String[] listChecks = actionRequest.getParameterValues("idDato");
-		// Convertir los ids en un listado de ResumenDatos
 		List<ResumenDatos> listCheckTemplates = new ArrayList<>();
 		for (String s : listChecks) {
 			ResumenDatos dato = resumenDatosService.getDatoById(Long.parseLong(s), groupId, userId);
 			listCheckTemplates.add(dato);
 		}
 
+		// Crear listas de cada tipo de plantilla
 		List<DDMTemplate> listTemplates = new ArrayList<>();
 		List<DDMTemplate> listAdts = new ArrayList<>();
 		List<DDMStructure> listStructures = new ArrayList<>();
-
-		// Identificar tipo de archivo / archivos recibidos
 
 		for (ResumenDatos dato : listCheckTemplates) {
 			try {
@@ -200,12 +199,6 @@ public class DownloadTemplateAction implements MVCActionCommand {
 		
         actionResponse.setRenderParameter("mvcRenderCommandName", "/");
 		
-//		try {
-//			actionResponse.sendRedirect("/");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
 		return true;
 	}
@@ -226,7 +219,6 @@ public class DownloadTemplateAction implements MVCActionCommand {
 		long userId = td.getUserId();
 		ExpandoValue ev = ExpandoValueLocalServiceUtil.getValue(td.getCompanyId(), classNameId, "CUSTOM_FIELDS", "Pathtemplates", userId);
 		String value=ev.getData();
-		System.out.println("Field value==>"+value);
 		
 		return value;
 	}

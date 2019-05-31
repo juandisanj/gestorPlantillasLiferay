@@ -47,7 +47,6 @@ public class DownloadFilesZipUtil {
 		
 		byte[] buf = new byte[1024];
 		try {
-			String desktopPath = System.getProperty("user.home") + "/Desktop/";
 			
 			String target = path + "/" + folder.getName() + ".zip";
 			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(target));
@@ -80,7 +79,6 @@ public class DownloadFilesZipUtil {
 		}catch(Exception e) {
 			e.getMessage();
 		}
-		
 	}
 	
 	private static void deleteFolder(File folder) {
