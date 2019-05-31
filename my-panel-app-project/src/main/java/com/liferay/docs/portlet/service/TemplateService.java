@@ -13,7 +13,7 @@ public class TemplateService {
 	
 	
 	public List<DDMTemplate> getTemplates() {
-		List<com.liferay.dynamic.data.mapping.model.DDMTemplate> lista = templateService.getDDMTemplates(0, Integer.MAX_VALUE); 
+		List<DDMTemplate> lista = templateService.getDDMTemplates(0, Integer.MAX_VALUE); 
 		return lista;
 	}
 	
@@ -26,6 +26,19 @@ public class TemplateService {
 			
 			if (template.getUserId() == userId) {
 				listTemplateGroup.add(template);
+			}
+		}
+		
+		Long id = listTemplateGroup.get(0).getClassNameId();
+		
+		List<DDMTemplate> listTemp = new ArrayList<>();
+		List<DDMTemplate> listAdt = new ArrayList<>();
+		
+		for(DDMTemplate temp : listTemplateGroup) {
+			if(temp.getClassNameId() == id) {
+				listTemp.add(temp);
+			}else if(temp.getClassNameId() != id) {
+				listAdt.add(temp);
 			}
 		}
 		

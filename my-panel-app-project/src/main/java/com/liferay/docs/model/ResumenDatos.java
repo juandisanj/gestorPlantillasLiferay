@@ -5,13 +5,13 @@ public class ResumenDatos {
 	private long idDato;
 	private String nombreDato;
 	private String scriptDatos;
-	private String claseDato;
+	private long claseDato;
 	private String tipo;
 	
 	public ResumenDatos() {
 	}
 	
-	public ResumenDatos(long idDato, String nombreDato, String scriptDatos, String claseDato, String tipo) {
+	public ResumenDatos(long idDato, String nombreDato, String scriptDatos, long claseDato, String tipo) {
 		super();
 		this.idDato = idDato;
 		this.nombreDato = nombreDato;
@@ -38,10 +38,10 @@ public class ResumenDatos {
 	public void setScriptDatos(String scriptDatos) {
 		this.scriptDatos = scriptDatos;
 	}
-	public String getClaseDato() {
+	public long getClaseDato() {
 		return claseDato;
 	}
-	public void setClaseDato(String claseDato) {
+	public void setClaseDato(long claseDato) {
 		this.claseDato = claseDato;
 	}
 
