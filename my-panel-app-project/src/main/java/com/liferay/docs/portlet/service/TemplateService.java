@@ -9,11 +9,8 @@ import java.util.List;
 
 public class TemplateService {
 	
-	private DDMTemplateLocalServiceUtil templateService = new DDMTemplateLocalServiceUtil();
-	
-	
 	public List<DDMTemplate> getTemplates() {
-		List<DDMTemplate> lista = templateService.getDDMTemplates(0, Integer.MAX_VALUE); 
+		List<DDMTemplate> lista = DDMTemplateLocalServiceUtil.getDDMTemplates(0, Integer.MAX_VALUE); 
 		return lista;
 	}
 	
@@ -23,7 +20,6 @@ public class TemplateService {
 		List<DDMTemplate> listDDMTemplate = getTemplates();
 		
 		for(DDMTemplate template : listDDMTemplate) {
-			
 			if (template.getUserId() == userId) {
 				listTemplateGroup.add(template);
 			}
@@ -45,7 +41,7 @@ public class TemplateService {
 		return listTemplateGroup;
 	}
 	
-	public static DDMTemplate getTemplate(long templateId) throws PortalException {
+	public DDMTemplate getTemplate(long templateId) throws PortalException {
 		DDMTemplate template = DDMTemplateLocalServiceUtil.getTemplate(templateId);
 		return template;
 	}
