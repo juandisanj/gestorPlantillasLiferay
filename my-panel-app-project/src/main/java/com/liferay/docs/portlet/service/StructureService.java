@@ -1,9 +1,11 @@
 package com.liferay.docs.portlet.service;
 
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
+import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StructureService {
@@ -13,8 +15,16 @@ public class StructureService {
 		return lista;
 	}
 	
-	public List<DDMStructure> getStructuresByGroupId(long groupId){
-		List<DDMStructure> listStructures = DDMStructureLocalServiceUtil.getStructures(groupId);
+	public List<DDMStructure> getStructuresByGroupId(long groupId, long userId){
+		
+		List<DDMStructure> listStructures = new ArrayList<>();
+		
+		for(DDMStructure structure : getStructures()) {
+			if (structure.getUserId() == userId && structure.getGroupId() == groupId) {
+				listStructures.add(structure);
+			}
+		}
+		
 		return listStructures;
 	}
 	
