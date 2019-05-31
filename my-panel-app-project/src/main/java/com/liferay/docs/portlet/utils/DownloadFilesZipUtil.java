@@ -19,8 +19,6 @@ public class DownloadFilesZipUtil {
 		Date date = new Date();
 		String dateString = sdf.format(date);
 		
-		String username = System.getProperty("user.name");
-		
 		File dir = null;
 		if("ftl".equals(type)) {
 			dir = new File("/Temp_ftl_" + dateString);
@@ -47,33 +45,28 @@ public class DownloadFilesZipUtil {
 		
 		byte[] buf = new byte[1024];
 		try {
-			
 			String target = path + "/" + folder.getName() + ".zip";
 			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(target));
 			for (int i=0; i<allFiles.length; i++) {
 	            FileInputStream in = new FileInputStream(allFiles[i]);
 	    
-	            // Add ZIP entry to output stream.
+	            // Añadir archivo zip al output stream
 	            out.putNextEntry(new ZipEntry(allFiles[i].getPath()));
 
-	            // Transfer bytes from the file to the ZIP file
 	            int len;
 	            while ((len = in.read(buf)) > 0) {
 	                out.write(buf, 0, len);
 	            }
 
-	            // Complete the entry
 	            out.closeEntry();
 	            in.close();
 	        }
 
-	        // Complete the ZIP file
 	        out.close();
 		}catch(IOException e) {
 			e.getMessage();
 		}
 		
-		// Eliminar la carpeta que se quiere convertir
 		try{
 			deleteFolder(folder);
 		}catch(Exception e) {
@@ -88,7 +81,6 @@ public class DownloadFilesZipUtil {
 			allFiles[i].delete();
 		}
 		folder.delete();
-		
 	}
 
 }
