@@ -50,7 +50,6 @@ public class SamplePortlet extends MVCPortlet {
 		ThemeDisplay td = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
 		long userId = td.getUserId();
-		
 		long groupId = td.getSiteGroupId();
 		
 		List<ResumenDatos> resumenDatosStru = resumenDatosService.getStructures(groupId, userId);

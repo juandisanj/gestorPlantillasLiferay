@@ -49,11 +49,16 @@ public class DownloadTemplateAction implements MVCActionCommand {
 
 		_log.info("Method DownloadTemplateAction.processAction: Descarga de ficheros seleccionados");
 
+		ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		
+		long userId = td.getUserId();
+		long groupId = td.getSiteGroupId();
+		
 		String[] listChecks = actionRequest.getParameterValues("idDato");
 		// Convertir los ids en un listado de ResumenDatos
 		List<ResumenDatos> listCheckTemplates = new ArrayList<>();
 		for (String s : listChecks) {
-			ResumenDatos dato = resumenDatosService.getDatoById(Long.parseLong(s));
+			ResumenDatos dato = resumenDatosService.getDatoById(Long.parseLong(s), groupId, userId);
 			listCheckTemplates.add(dato);
 		}
 
@@ -187,7 +192,14 @@ public class DownloadTemplateAction implements MVCActionCommand {
 			DownloadFilesZipUtil.exportFolderToZip(folder, getPathPortal(actionRequest));
 		}
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", "/");
+		
+		
+		
+//		PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(actionRequest),portletName,themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE);
+//        redirectURL.setParameter("jspPage", "/registration.jsp");
+		
+        actionResponse.setRenderParameter("mvcRenderCommandName", "/");
+		
 //		try {
 //			actionResponse.sendRedirect("/");
 //		} catch (IOException e) {

@@ -23,12 +23,8 @@ public class ResumenDatosService {
 			dato.setIdDato(template.getTemplateId());
 			dato.setNombreDato(template.getName("Es_es"));
 			dato.setScriptDatos(template.getScript());
-			dato.setClaseDato(template.getClassName());
-			if("".equals(template.getDescription())) {
-				dato.setTipo("ftl");
-			}else {
-				dato.setTipo("adt");
-			}
+			dato.setClaseDato(template.getClassNameId());
+
 			resumenDatos.add(dato);
 		}
 		
@@ -37,13 +33,54 @@ public class ResumenDatosService {
 			dato.setIdDato(structure.getStructureId());
 			dato.setNombreDato(structure.getName("Es_es"));
 			dato.setScriptDatos(structure.getDefinition());
-			dato.setClaseDato(structure.getClassName());
+			dato.setClaseDato(structure.getClassNameId());
 			dato.setTipo("structure");
 			
 			resumenDatos.add(dato);
 		}
 		return resumenDatos;	
+	}
+	
+	public List<ResumenDatos> getAll2(long groupId, long userId) {
 		
+		List<DDMStructure> listaStructures = structureService.getStructures();
+		List<DDMTemplate> listaDDMTemplates = templateService.getTemplatesByGroupId(groupId, userId);
+		
+		List<ResumenDatos> listResu = new ArrayList<>();
+		List<ResumenDatos> listTemplates = new ArrayList<>();
+		List<ResumenDatos> listStructures = new ArrayList<>();
+		
+		for(DDMTemplate template: listaDDMTemplates) {
+			ResumenDatos dato = new ResumenDatos();
+			dato.setIdDato(template.getTemplateId());
+			dato.setNombreDato(template.getName("Es_es"));
+			dato.setScriptDatos(template.getScript());
+			dato.setClaseDato(template.getClassNameId());
+			
+			listResu.add(dato); 
+		}
+		long classId = listResu.get(0).getClaseDato();
+		for(ResumenDatos template : listResu) {
+			if(classId != template.getClaseDato()){
+				template.setTipo("ftl");
+				listTemplates.add(template);
+			}else {
+				template.setTipo("adt");
+				listTemplates.add(template);
+			}
+		}
+		
+		for (DDMStructure structure: listaStructures) {
+			ResumenDatos dato = new ResumenDatos();
+			dato.setIdDato(structure.getStructureId());
+			dato.setNombreDato(structure.getName("Es_es"));
+			dato.setScriptDatos(structure.getDefinition());
+			dato.setClaseDato(structure.getClassNameId());
+			dato.setTipo("structure");
+			
+			listTemplates.add(dato);
+		}
+		return listTemplates;
 	}
 	
 	public List<ResumenDatos> getByClassName(String className){
@@ -58,7 +95,7 @@ public class ResumenDatosService {
 				dato.setIdDato(template.getTemplateId());
 				dato.setNombreDato(template.getName("Es_es"));
 				dato.setScriptDatos(template.getScript());
-				dato.setClaseDato(template.getClassName());
+				dato.setClaseDato(template.getClassNameId());
 				
 				resumenDatos.add(dato);				
 			}
@@ -70,14 +107,12 @@ public class ResumenDatosService {
 				dato.setIdDato(structure.getStructureId());
 				dato.setNombreDato(structure.getName("Es_es"));
 				dato.setScriptDatos(structure.getDefinition());
-				dato.setClaseDato(structure.getClassName());
+				dato.setClaseDato(structure.getClassNameId());
 				
 				resumenDatos.add(dato);
 			}
 		}
-		
 		return resumenDatos;
-		
 	}
 	
 	public List<ResumenDatos> getAllByGroupId(long groupId, long userId) {
@@ -91,12 +126,8 @@ public class ResumenDatosService {
 			dato.setIdDato(template.getTemplateId());
 			dato.setNombreDato(template.getName("Es_es"));
 			dato.setScriptDatos(template.getScript());
-			dato.setClaseDato(template.getClassName());
-			if("".equals(template.getDescription())) {
-				dato.setTipo("ftl");
-			}else {
-				dato.setTipo("adt");
-			}
+			dato.setClaseDato(template.getClassNameId());
+			
 			resumenDatos.add(dato);
 		}
 		
@@ -105,7 +136,7 @@ public class ResumenDatosService {
 			dato.setIdDato(structure.getStructureId());
 			dato.setNombreDato(structure.getName("Es_es"));
 			dato.setScriptDatos(structure.getDefinition());
-			dato.setClaseDato(structure.getClassName());
+			dato.setClaseDato(structure.getClassNameId());
 			dato.setTipo("structure");
 			
 			resumenDatos.add(dato);
@@ -114,10 +145,10 @@ public class ResumenDatosService {
 		
 	}
 	
-	public ResumenDatos getDatoById(long idDato) {
+	public ResumenDatos getDatoById(long idDato, long groupId, long userId) {
 		ResumenDatos dato = new ResumenDatos();
 		
-		for(ResumenDatos rd : getAll()) {
+		for(ResumenDatos rd : getAll2(groupId, userId)) {
 			if(rd.getIdDato() == idDato) {
 				dato = rd;
 			}
@@ -126,10 +157,23 @@ public class ResumenDatosService {
 	}
 	
 	public List<ResumenDatos> getTemplates(long groupId, long userId) {
+		List<ResumenDatos> listResu = new ArrayList<>();
+		List<DDMTemplate> listaDDMTemplates = templateService.getTemplatesByGroupId(groupId, userId);
 		List<ResumenDatos> listTemplates = new ArrayList<>();
 		
-		for(ResumenDatos template : getAllByGroupId(groupId, userId)) {
-			if("ftl".equals(template.getTipo())){
+		for(DDMTemplate template: listaDDMTemplates) {
+			ResumenDatos dato = new ResumenDatos();
+			dato.setIdDato(template.getTemplateId());
+			dato.setNombreDato(template.getName("Es_es"));
+			dato.setScriptDatos(template.getScript());
+			dato.setClaseDato(template.getClassNameId());
+			
+			listResu.add(dato); 
+		}
+		long classId = listResu.get(0).getClaseDato();
+		for(ResumenDatos template : listResu) {
+			if(classId != template.getClaseDato()){
+				template.setTipo("ftl");
 				listTemplates.add(template);
 			}
 		}
@@ -138,11 +182,24 @@ public class ResumenDatosService {
 	}
 	
 	public List<ResumenDatos> getAdts(long groupId, long userId){
+		List<ResumenDatos> listResu = new ArrayList<>();
+		List<DDMTemplate> listaDDMTemplates = templateService.getTemplatesByGroupId(groupId, userId);
 		List<ResumenDatos> listAdts = new ArrayList<>();
 		
-		for(ResumenDatos adts : getAllByGroupId(groupId, userId)) {
-			if("adt".equals(adts.getTipo())){
-				listAdts.add(adts);
+		for(DDMTemplate template: listaDDMTemplates) {
+			ResumenDatos dato = new ResumenDatos();
+			dato.setIdDato(template.getTemplateId());
+			dato.setNombreDato(template.getName("Es_es"));
+			dato.setScriptDatos(template.getScript());
+			dato.setClaseDato(template.getClassNameId());
+			
+			listResu.add(dato); 
+		}
+		long classId = listResu.get(0).getClaseDato();
+		for(ResumenDatos template : listResu) {
+			if(classId == template.getClaseDato()){
+				template.setTipo("adt");
+				listAdts.add(template);
 			}
 		}
 		
@@ -160,6 +217,5 @@ public class ResumenDatosService {
 		
 		return listStructures;
 	}
-	
 
 }
